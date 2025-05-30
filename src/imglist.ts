@@ -43,26 +43,36 @@ function convertOptionsToStorageImgList(options: sicOptions): sicStorageOptions 
   };
 }
 
+function loadOptionsImgListDetail(result: { [key: string]: any;}) {
+  sicOptionsImgList.imgExtPattern = new RegExp(result['rxImgExtPattern']);
+  sicOptionsImgList.getAToImg = result['bGetAToImg'] === 'true';
+  sicOptionsImgList.thumbnailWidth = Number(result['nmbThumbWidth']);
+  sicOptionsImgList.defSearchWord = result['txtDefSearchWord'];
+  sicOptionsImgList.swHistory = result['arySwHistory'].replace(/,,/g, ',').split(',');
+  sicOptionsImgList.dlFilenameType = Number(result['numDlFilenameType']);
+  sicOptionsImgList.rememberSort = result['bRememberSort'] === 'true';
+  sicOptionsImgList.sortColmun = result['txtSortColumn'];
+  sicOptionsImgList.sortOrder = result['txtSortOrder'];
+  sicOptionsImgList.oosDisplay = result['bOosDisplay'] === 'true';
+  sicOptionsImgList.bgChecker = result['bBgChecker'] === 'true';
+  sicOptionsImgList.bgColor = result['clrBgColor'];
+  sicOptionsImgList.remove1x1 = result['bRemove1x1'] === 'true';
+  sicOptionsImgList.rTimeout = Number(result['nmbRTimeout']);
+  sicOptionsImgList.a2IfUrl = result['txtA2IfUrl'];
+  sicOptionsImgList.a2DlDirW = result['txtA2DlDirW'].replace(/(\\|\/)$/, '');
+  sicOptionsImgList.a2DlDirP = result['txtA2DlDirP'].replace(/(\\|\/)$/, '');
+}
+
 function loadOptionsImgList() {
   const storageOptions: sicStorageOptions = convertOptionsToStorageImgList(sicOptionsImgList);
   chrome.storage.sync.get(Object.keys(storageOptions), (result) => {
-    sicOptionsImgList.imgExtPattern = new RegExp(result['rxImgExtPattern']);
-    sicOptionsImgList.getAToImg = result['bGetAToImg'] === 'true';
-    sicOptionsImgList.thumbnailWidth = Number(result['nmbThumbWidth']);
-    sicOptionsImgList.defSearchWord = result['txtDefSearchWord'];
-    sicOptionsImgList.swHistory = result['arySwHistory'].replace(/,,/g, ',').split(',');
-    sicOptionsImgList.dlFilenameType = Number(result['numDlFilenameType']);
-    sicOptionsImgList.rememberSort = result['bRememberSort'] === 'true';
-    sicOptionsImgList.sortColmun = result['txtSortColumn'];
-    sicOptionsImgList.sortOrder = result['txtSortOrder'];
-    sicOptionsImgList.oosDisplay = result['bOosDisplay'] === 'true';
-    sicOptionsImgList.bgChecker = result['bBgChecker'] === 'true';
-    sicOptionsImgList.bgColor = result['clrBgColor'];
-    sicOptionsImgList.remove1x1 = result['bRemove1x1'] === 'true';
-    sicOptionsImgList.rTimeout = Number(result['nmbRTimeout']);
-    sicOptionsImgList.a2IfUrl = result['txtA2IfUrl'];
-    sicOptionsImgList.a2DlDirW = result['txtA2DlDirW'].replace(/(\\|\/)$/, '');
-    sicOptionsImgList.a2DlDirP = result['txtA2DlDirP'].replace(/(\\|\/)$/, '');
+    if(chrome.runtime.lastError || Object.keys(result).length === 0) {
+      chrome.storage.local.get(Object.keys(storageOptions), (result) => {
+        loadOptionsImgListDetail
+      });
+    } else {
+      loadOptionsImgListDetail
+    }
   });
 
   const history = <HTMLDataListElement>document.getElementById('history');

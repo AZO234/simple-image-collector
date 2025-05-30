@@ -27,16 +27,19 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build
+      # ==========================
+      # Chrome用ビルド＆提出処理
+      # ==========================
+      - name: Build for Chrome
         run: pnpm run build_crx
 
       - name: Set repository name
         run: echo "REPOSITORY_NAME=${GITHUB_REPOSITORY#${GITHUB_REPOSITORY_OWNER}/}" >> $GITHUB_ENV
 
-      - name: Zip dist directory
+      - name: Zip Chrome build
         run: zip -r "${{ env.REPOSITORY_NAME }}_v${{ github.ref_name }}.zip" dist/
 
-      - name: Submit to Chrome webstore
+      - name: Submit to Chrome Web Store
         run: npx chrome-webstore-upload-cli@3 upload --source "${{ env.REPOSITORY_NAME }}_v${{ github.ref_name }}.zip" --auto-publish
         env:
           EXTENSION_ID: ${{ secrets.EXTENSION_ID }}
@@ -44,13 +47,39 @@ jobs:
           CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
           REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
 
-      - name: Upload Release Asset
+      # ==========================
+      # Firefox用ビルド＆提出処理
+      # ==========================
+      - name: Build for Firefox
+        run: pnpm run build_ffa
+
+      - name: Sign and submit to AMO
+        run: |
+          npx web-ext sign \
+            --source-dir=dist \
+            --artifacts-dir=webext-artifacts \
+            --api-key=${{ secrets.AMO_API_KEY }} \
+            --api-secret=${{ secrets.AMO_API_SECRET }}
+
+      # ==========================
+      # GitHub Release へのアップロード
+      # ==========================
+      - name: Upload Chrome ZIP to GitHub Release
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
           asset_path: "./${{ env.REPOSITORY_NAME }}_v${{ github.ref_name }}.zip"
-          asset_name: "${{ env.REPOSITORY_NAME }}_v${{ github.ref_name }}.zip"
+          asset_name: "${{ env.REPOSITORY_NAME }}_v${{ github.ref_name }}_chrome.zip"
           asset_content_type: application/zip
 
+      - name: Upload Firefox XPI to GitHub Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: "./webext-artifacts/*.xpi"
+          asset_name: "${{ env.REPOSITORY_NAME }}_v${{ github.ref_name }}_firefox.xpi"
+          asset_content_type: application/x-xpinstall

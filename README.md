@@ -5,7 +5,10 @@
 
 Simple pages image collector browser extension.
 
-Get from [Google webstore](https://chromewebstore.google.com/detail/simple-image-collector/jefekhkflihponopkgccdmgfldmbcgcj) !!
+Get from
+- [Google webstore](https://chromewebstore.google.com/detail/simple-image-collector/jefekhkflihponopkgccdmgfldmbcgcj)
+- [Firefox Browser ADD-ONS](https://addons.mozilla.org/ja/firefox/addon/simple-image-collector/)
+- [Edge Extension](https://microsoftedge.microsoft.com/addons/detail/dlcfbhlnocpnlbepbmdadlilageeppan)
 
 ## Thanks
 

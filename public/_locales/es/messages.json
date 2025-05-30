@@ -1,0 +1,210 @@
+{
+  "description_sic": {
+    "message": "Imágenes sencillas de coleccionista de páginas.",
+    "description": "Description of simple-image-collector."
+  },
+  "action": {
+    "message": "Acción",
+    "description": "Actions for selected images."
+  },
+  "action_popover": {
+    "message": "Acciones para imágenes seleccionadas.",
+    "description": "popover for Action button."
+  },
+  "download": {
+    "message": "Descargar",
+    "description": "Download selected images."
+  },
+  "download_popover": {
+    "message": "Descargar imágenes seleccionadas.",
+    "description": "popover for Download button."
+  },
+  "download_started": {
+    "message": "Descarga iniciada.",
+    "description": "download started."
+  },
+  "copy": {
+    "message": "Copiar",
+    "description": "Copy URLs of selected images."
+  },
+  "copy_popover": {
+    "message": "Copiar URL de imágenes seleccionadas.",
+    "description": "popover for Copy button."
+  },
+  "copied": {
+    "message": "Copiado.",
+    "description": "Copied."
+  },
+  "send_to_aria2": {
+    "message": "Enviar a Aria2",
+    "description": "Download selected images with Aria2."
+  },
+  "send_to_aria2_popover": {
+    "message": "Descargue imágenes seleccionadas con Aria2.",
+    "description": "popover for Send to Aria2 button."
+  },
+  "sent_to_aria2": {
+    "message": "Enviado a Aria2 JSON-RPC.",
+    "description": "Sent to Aria2 JSON-RPC."
+  },
+  "clear": {
+    "message": "Claro",
+    "description": "Clear all images selection."
+  },
+  "clear_popover": {
+    "message": "Borrar toda la selección de imágenes.",
+    "description": "popover for Clear button."
+  },
+  "search": {
+    "message": "Buscar",
+    "description": "Search for inside list."
+  },
+  "search_popover": {
+    "message": "Buscar (con /.../ a RegExp)<br>Para guardar el historial, presione Enter.",
+    "description": "popover for Search."
+  },
+  "checker": {
+    "message": "Checker",
+    "description": "Checker for background of thumbnail."
+  },
+  "color": {
+    "message": "Color",
+    "description": "Color for background of thumbnail."
+  },
+  "background_popover": {
+    "message": "Color de fondo de la miniatura.",
+    "description": "popover for background selection."
+  },
+  "options_popover": {
+    "message": "Abrir página de opciones.",
+    "description": "popover for Options button."
+  },
+  "page_top_popover": {
+    "message": "Ir al inicio de la página.",
+    "description": "popover for Page top button."
+  },
+  "page_bottom_popover": {
+    "message": "Ir al final de la página.",
+    "description": "popover for Page bottom button."
+  },
+  "th_index": {
+    "message": "Índice",
+    "description": "table header for index."
+  },
+  "th_check": {
+    "message": "Controlar",
+    "description": "table header for Check."
+  },
+  "th_tag": {
+    "message": "Etiqueta",
+    "description": "table header for Tag."
+  },
+  "th_type": {
+    "message": "Tipo",
+    "description": "table header for Type."
+  },
+  "th_mime": {
+    "message": "MIME",
+    "description": "table header for MIME type."
+  },
+  "th_url_info": {
+    "message": "URL e información",
+    "description": "table header for URL & Information."
+  },
+  "img_ext_pattern": {
+    "message": "Patrón de extensión como imagen (formato RegExp)",
+    "description": "Explanation ext RegExp pattern as image."
+  },
+  "img_ext_pattern_placeholder": {
+    "message": "p. ej. /\\.(jpg|jpeg)$/",
+    "description": "Example for ext pattern."
+  },
+  "sic_options": {
+    "message": "simple-image-collector opciones",
+    "description": "simple-image-collector options title."
+  },
+  "get_atoimg": {
+    "message": "Obtener atoimg (enlace de imagen fuera de páginas)",
+    "description": "Explanation getting atoimg option."
+  },
+  "thumbnail_width": {
+    "message": "Ancho de miniatura",
+    "description": "thumbnail width."
+  },
+  "thumbnail_width_placeholder": {
+    "message": "p. ej. 100",
+    "description": "Example for thumbnail width."
+  },
+  "default_search_word": {
+    "message": "Palabra de búsqueda predeterminada",
+    "description": "default search word."
+  },
+  "default_search_word_placeholder": {
+    "message": "p. ej. thisimage",
+    "description": "Example for default search word."
+  },
+  "delete_search_word_history": {
+    "message": "Eliminar el historial de palabras de búsqueda",
+    "description": "Explanation Delete search word history button."
+  },
+  "delete": {
+    "message": "Borrar",
+    "description": "Delete."
+  },
+  "custom_download_filename": {
+    "message": "Nombre de archivo de descarga personalizado",
+    "description": "Explanation how filename locate and rename."
+  },
+  "display_outofsearch": {
+    "message": "Mostrar fuera de búsqueda con atenuación",
+    "description": "Explanation display out of search row."
+  },
+  "remember_sort": {
+    "message": "Recuerda el orden de clasificación",
+    "description": "Remember sort column and order."
+  },
+  "remember_background": {
+    "message": "Recordar el color de fondo de la miniatura",
+    "description": "Remember background color of thumbnail."
+  },
+  "remove_1x1": {
+    "message": "Eliminar imagen de tamaño 1x1",
+    "description": "Remove 1x1 size images."
+  },
+  "read_timeout": {
+    "message": "Tiempo de espera para leer (ms)",
+    "description": "Timeout for reading by ms."
+  },
+  "read_timeout_placeholder": {
+    "message": "e.g. 10000",
+    "description": "Example for timeout."
+  },
+  "a2_if_url": {
+    "message": "(Aria2) URL de la interfaz",
+    "description": "Interface URL of Aria2."
+  },
+  "a2_download_dir": {
+    "message": "(Aria2) Descargar directorio",
+    "description": "Download directory for Aria2."
+  },
+  "default": {
+    "message": "Por defecto",
+    "description": "Default."
+  },
+  "back_default": {
+    "message": "Atrás predeterminado",
+    "description": "Back to default all options."
+  },
+  "save": {
+    "message": "Guardar",
+    "description": "Save options."
+  },
+  "images_in": {
+    "message": "Imágenes en",
+    "description": "Images in page."
+  },
+  "in_css": {
+    "message": "en CSS",
+    "description": "Images in CSS."
+  }
+}

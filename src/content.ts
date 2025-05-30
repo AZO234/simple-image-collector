@@ -29,15 +29,23 @@ function convertOptionsToStorageContent(options: sicOptions): sicStorageOptionsC
   };
 }
 
+function loadOptionsContentDetail(result: { [key: string]: any;}) {
+  sicOptionsContent.imgExtPattern = new RegExp(result['rxImgExtPattern']);
+  sicOptionsContent.getAToImg = result['bGetAToImg'] === 'true';
+  sicOptionsContent.remove1x1 = result['bRemove1x1'] === 'true';
+  sicOptionsContent.rTimeout = Number(result['nmbRTimeout']);
+}
+
 function loadOptionsContent() {
   const storageOptions: sicStorageOptionsContent = convertOptionsToStorageContent(sicOptionsContent);
   chrome.storage.sync.get(Object.keys(storageOptions), (result) => {
-    sicOptionsContent.imgExtPattern = new RegExp(result['rxImgExtPattern']);
-    sicOptionsContent.getAToImg = result['bGetAToImg'] === 'true';
-    sicOptionsContent.remove1x1 = result['bRemove1x1'] === 'true';
-    sicOptionsContent.rTimeout = Number(result['nmbRTimeout']);
-
-    collectItems();
+    if(chrome.runtime.lastError || Object.keys(result).length === 0) {
+      chrome.storage.local.get(Object.keys(storageOptions), (result) => {
+        loadOptionsContentDetail(result);
+      });
+    } else {
+      loadOptionsContentDetail(result);
+    }
   });
 }
 
@@ -46,6 +54,7 @@ chrome.runtime.onMessage.addListener((message) => {
     case 'azo_sic_collectitems':
       // load options
       loadOptionsContent();
+      collectItems();
       break;
     }
 });

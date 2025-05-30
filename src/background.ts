@@ -92,7 +92,11 @@ function saveOptions(options: sicOptions) {
 }
 
 function saveOptionsFromStorage(storageoptions: sicStorageOptions) {
-  chrome.storage.sync.set(storageoptions);
+  try {
+    chrome.storage.sync.set(storageoptions);
+  } catch(e) {
+    chrome.storage.local.set(storageoptions);
+  }
 
   chrome.tabs.query({ url: chrome.runtime.getURL('imglist.html') }, async (tabs) => {
     for(const tab of tabs) {

@@ -1,6 +1,6 @@
 {
   "name": "simple-image-collector",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Simple image collector.",
   "scripts": {
     "build_crx": "rm -rf dist && cp -r public dist && cp manifest_crx.json dist/manifest.json && mkdir dist/js && cp node_modules/bootstrap/dist/js/bootstrap.bundle.min.js dist/js/ && mkdir dist/css && cp node_modules/bootstrap/dist/css/bootstrap.min.css dist/css/ && mkdir -p dist/font/fonts && cp node_modules/bootstrap-icons/font/bootstrap-icons.min.css dist/font/ && cp node_modules/bootstrap-icons/font/fonts/*.woff* dist/font/fonts/ && tsc",
@@ -16,7 +16,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/bootstrap": "^5.2.10",
-    "@types/chrome": "^0.0.323",
+    "@types/chrome": "0.0.325",
     "@types/firefox-webext-browser": "^120.0.4",
     "typescript": "^5.8.3",
     "web-ext": "^8.7.0"

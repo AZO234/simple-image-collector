@@ -43,6 +43,27 @@ function convertOptionsToStorageOp(options: sicOptions): sicStorageOptions {
   };
 }
 
+function loadOptionsDetail(result: { [key: string]: any;}) {
+  sicOptionsOp.imgExtPattern = new RegExp(result['rxImgExtPattern']);
+  sicOptionsOp.getAToImg = result['bGetAToImg'] === 'true';
+  sicOptionsOp.thumbnailWidth = Number(result['nmbThumbWidth']);
+  sicOptionsOp.defSearchWord = result['txtDefSearchWord'];
+  sicOptionsOp.swHistory = result['arySwHistory'].replace(/,,/g, ',').split(',');
+  sicOptionsOp.dlFilenameType = Number(result['numDlFilenameType']);
+  sicOptionsOp.rememberSort = result['bRememberSort'] === 'true';
+  sicOptionsOp.sortColmun = result['txtSortColumn'];
+  sicOptionsOp.sortOrder = result['txtSortOrder'];
+  sicOptionsOp.oosDisplay = result['bOosDisplay'] === 'true';
+  sicOptionsOp.rememberBg = result['bRememberBg'] === 'true';
+  sicOptionsOp.bgChecker = result['bBgChecker'] === 'true';
+  sicOptionsOp.bgColor = result['clrBgColor'];
+  sicOptionsOp.remove1x1 = result['bRemove1x1'] === 'true';
+  sicOptionsOp.rTimeout = Number(result['nmbRTimeout']);
+  sicOptionsOp.a2IfUrl = result['txtA2IfUrl'];
+  sicOptionsOp.a2DlDirW = result['txtA2DlDirW'].replace(/(\\|\/)$/, '');
+  sicOptionsOp.a2DlDirP = result['txtA2DlDirP'].replace(/(\\|\/)$/, '');
+}
+
 function loadOptionsToUI() {
   const storageOptions: sicStorageOptions = {
     rxImgExtPattern: '',
@@ -65,24 +86,13 @@ function loadOptionsToUI() {
     txtA2DlDirP: ''
   }
   chrome.storage.sync.get(Object.keys(storageOptions), (result) => {
-    sicOptionsOp.imgExtPattern = new RegExp(result['rxImgExtPattern']);
-    sicOptionsOp.getAToImg = result['bGetAToImg'] === 'true';
-    sicOptionsOp.thumbnailWidth = Number(result['nmbThumbWidth']);
-    sicOptionsOp.defSearchWord = result['txtDefSearchWord'];
-    sicOptionsOp.swHistory = result['arySwHistory'].replace(/,,/g, ',').split(',');
-    sicOptionsOp.dlFilenameType = Number(result['numDlFilenameType']);
-    sicOptionsOp.rememberSort = result['bRememberSort'] === 'true';
-    sicOptionsOp.sortColmun = result['txtSortColumn'];
-    sicOptionsOp.sortOrder = result['txtSortOrder'];
-    sicOptionsOp.oosDisplay = result['bOosDisplay'] === 'true';
-    sicOptionsOp.rememberBg = result['bRememberBg'] === 'true';
-    sicOptionsOp.bgChecker = result['bBgChecker'] === 'true';
-    sicOptionsOp.bgColor = result['clrBgColor'];
-    sicOptionsOp.remove1x1 = result['bRemove1x1'] === 'true';
-    sicOptionsOp.rTimeout = Number(result['nmbRTimeout']);
-    sicOptionsOp.a2IfUrl = result['txtA2IfUrl'];
-    sicOptionsOp.a2DlDirW = result['txtA2DlDirW'].replace(/(\\|\/)$/, '');
-    sicOptionsOp.a2DlDirP = result['txtA2DlDirP'].replace(/(\\|\/)$/, '');
+    if(chrome.runtime.lastError || Object.keys(result).length === 0) {
+      chrome.storage.sync.get(Object.keys(storageOptions), (result) => {
+        loadOptionsDetail(result);
+      });
+    } else {
+      loadOptionsDetail(result);
+    }
 
     const txtImgExtPattern = <HTMLInputElement>document.getElementById('txtImgExtPattern');
     const chkGetAToImg = <HTMLInputElement>document.getElementById('chkGetAToImg');
