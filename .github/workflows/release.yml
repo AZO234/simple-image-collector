@@ -57,6 +57,7 @@ jobs:
         run: |
           npx web-ext sign \
             --source-dir=dist \
+            --channel=listed \
             --artifacts-dir=webext-artifacts \
             --api-key=${{ secrets.AMO_API_KEY }} \
             --api-secret=${{ secrets.AMO_API_SECRET }}
