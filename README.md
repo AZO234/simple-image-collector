@@ -13,3 +13,7 @@ Get from
 ## Thanks
 
 This application uses [FLATICON](https://www.flaticon.com/). Thanks!
+
+## 💖If you favorite this extension...
+
+Please Push star & [donate for me!](https://github.com/sponsors/AZO234)

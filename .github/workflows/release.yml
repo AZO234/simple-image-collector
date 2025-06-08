@@ -58,7 +58,7 @@ jobs:
           npx web-ext sign \
             --source-dir=dist \
             --channel=listed \
-            --artifacts-dir=webext-artifacts \
+            --artifacts-dir=web-ext-artifacts \
             --api-key=${{ secrets.AMO_API_KEY }} \
             --api-secret=${{ secrets.AMO_API_SECRET }}
 
@@ -81,6 +81,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: "./webext-artifacts/*.xpi"
+          asset_path: "./web-ext-artifacts/*.xpi"
           asset_name: "${{ env.REPOSITORY_NAME }}_v${{ github.ref_name }}_firefox.xpi"
           asset_content_type: application/x-xpinstall
