@@ -22,8 +22,8 @@ importers:
         specifier: ^5.2.10
         version: 5.2.10
       '@types/chrome':
-        specifier: ^0.0.325
-        version: 0.0.325
+        specifier: 0.0.329
+        version: 0.0.329
       '@types/firefox-webext-browser':
         specifier: ^120.0.4
         version: 120.0.4
@@ -133,8 +133,8 @@ packages:
   '@types/bootstrap@5.2.10':
     resolution: {integrity: sha512-F2X+cd6551tep0MvVZ6nM8v7XgGN/twpdNDjqS1TUM7YFNEtQYWk+dKAnH+T1gr6QgCoGMPl487xw/9hXooa2g==}
 
-  '@types/chrome@0.0.325':
-    resolution: {integrity: sha512-iHsXfUeAjQ8a+zMGCRNHESApb/gBV6eRlukks5gqDjUP4atF/j4BLKnVVLxyG/6PARRrupwkZvULUI+ovR9luQ==}
+  '@types/chrome@0.0.329':
+    resolution: {integrity: sha512-jAZX4QMnAa1bTSWoQ5/EhhiY1t+1B7a5ZCY5ZEs61tWiQfxXAkfBSxCkQWhGxJoiq/4b4vtcmYEebNEmlLKecg==}
 
   '@types/filesystem@0.0.36':
     resolution: {integrity: sha512-vPDXOZuannb9FZdxgHnqSwAG/jvdGM8Wq+6N4D/d80z+D4HWH+bItqsZaVRQykAn6WEVeEkLm2oQigyHtgb0RA==}
@@ -1467,7 +1467,7 @@ snapshots:
     dependencies:
       '@popperjs/core': 2.11.8
 
-  '@types/chrome@0.0.325':
+  '@types/chrome@0.0.329':
     dependencies:
       '@types/filesystem': 0.0.36
       '@types/har-format': 1.2.16
