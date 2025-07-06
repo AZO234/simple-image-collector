@@ -68,10 +68,10 @@ function loadOptionsImgList() {
   chrome.storage.sync.get(Object.keys(storageOptions), (result) => {
     if(chrome.runtime.lastError || Object.keys(result).length === 0) {
       chrome.storage.local.get(Object.keys(storageOptions), (result) => {
-        loadOptionsImgListDetail
+        loadOptionsImgListDetail(result);
       });
     } else {
-      loadOptionsImgListDetail
+      loadOptionsImgListDetail(result);
     }
   });
 
