@@ -24,6 +24,9 @@ jobs:
           node-version: 20
           cache: 'pnpm'
 
+      - name: precopy manifest (Chrome)
+        run: cp manifest_crx.json manifest.json
+
       - name: Install dependencies
         run: pnpm install
 
