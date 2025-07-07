@@ -24,8 +24,13 @@ jobs:
           node-version: 20
           cache: 'pnpm'
 
-      - name: precopy manifest (Chrome)
-        run: cp manifest_crx.json manifest.json
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('pnpm-lock.yaml', 'package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
         run: pnpm install
