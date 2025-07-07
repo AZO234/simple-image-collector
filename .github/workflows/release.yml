@@ -40,7 +40,7 @@ jobs:
         run: zip -r "${{ env.REPOSITORY_NAME }}_v${{ github.ref_name }}.zip" dist/
 
       - name: Submit to Chrome Web Store
-        run: npx chrome-webstore-upload-cli@3 upload --source "${{ env.REPOSITORY_NAME }}_v${{ github.ref_name }}.zip" --auto-publish
+        run: npx chrome-webstore-upload-cli@3 upload --source "${{ env.REPOSITORY_NAME }}_${{ github.ref_name }}.zip" --auto-publish
         env:
           EXTENSION_ID: ${{ secrets.EXTENSION_ID }}
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
@@ -71,8 +71,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: "./${{ env.REPOSITORY_NAME }}_v${{ github.ref_name }}.zip"
-          asset_name: "${{ env.REPOSITORY_NAME }}_v${{ github.ref_name }}_chrome.zip"
+          asset_path: "./${{ env.REPOSITORY_NAME }}_${{ github.ref_name }}.zip"
+          asset_name: "${{ env.REPOSITORY_NAME }}_${{ github.ref_name }}.zip"
           asset_content_type: application/zip
 
       - name: Upload Firefox XPI to GitHub Release
@@ -82,5 +82,5 @@ jobs:
         with:
           upload_url: ${{ github.event.release.upload_url }}
           asset_path: "./web-ext-artifacts/*.xpi"
-          asset_name: "${{ env.REPOSITORY_NAME }}_v${{ github.ref_name }}_firefox.xpi"
+          asset_name: "${{ env.REPOSITORY_NAME }}_${{ github.ref_name }}.xpi"
           asset_content_type: application/x-xpinstall
