@@ -682,16 +682,16 @@ function idClick(item: sicItem) {
             case 0:
               if(sicItemsImgList[i].index === indeterminateIndex[0] || sicItemsImgList[i].index === indeterminateIndex[1]) {
                 if(sicOptionsImgList.oosDisplay || (sicItemsImgList[i].check & 0b001)) {
-                  sicItemsImgList[i].check |= 0b100;
+                  sicItemsImgList[i].check |= 0b010;
                   state++;
                 }
               }
               break;
             case 1:
-              sicItemsImgList[i].check |= 0b100;
+              sicItemsImgList[i].check |= 0b010;
               if(sicItemsImgList[i].index === indeterminateIndex[0] || sicItemsImgList[i].index === indeterminateIndex[1]) {
                 if(sicOptionsImgList.oosDisplay || (sicItemsImgList[i].check & 0b001)) {
-                  sicItemsImgList[i].check |= 0b100;
+                  sicItemsImgList[i].check |= 0b010;
                   state++;
                 }
               }
