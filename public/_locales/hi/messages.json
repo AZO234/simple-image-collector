@@ -3,6 +3,10 @@
     "message": "पेज कलेक्टर की सरल छवियाँ।",
     "description": "Description of simple-image-collector."
   },
+  "open_with_sic": {
+    "message": "simple-images-collector से खोलें।",
+    "description": "Open with Simple images collector."
+  },
   "action": {
     "message": "कार्रवाई",
     "description": "Actions for selected images."

@@ -1,7 +1,11 @@
 {
   "description_sic": {
-    "message": "页面收集器的简单图像。",
+    "message": "简单图像采集器的描述",
     "description": "Description of simple-image-collector."
+  },
+  "open_with_sic": {
+    "message": "使用 simple-images-collector 打开",
+    "description": "Open with simple-images-collector."
   },
   "action": {
     "message": "行动",

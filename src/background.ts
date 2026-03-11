@@ -147,6 +147,20 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   }
 });
 
+// on press shortcutkey
+chrome.commands.onCommand.addListener(function (command) {
+  getCurrentTab().then((tab) => {
+    if(tab.id) {
+      chrome.tabs.sendMessage(tab.id, { action: 'azo_sic_collectitems' });
+    }
+  })
+});
+async function getCurrentTab() {
+	let queryOptions = { active: true, currentWindow: true };
+	let [tab] = await chrome.tabs.query(queryOptions);
+	return tab;
+}
+
 // on message
 chrome.runtime.onMessage.addListener((message) => {
   let newTabId = 0;

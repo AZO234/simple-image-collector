@@ -3,6 +3,10 @@
     "message": "ページ内の画像を収集するシンプルなコレクターです。",
     "description": "Description of simple-image-collector."
   },
+  "open_with_sic": {
+    "message": "simple-image-collectorで開く",
+    "description": "Open with simple-image-collector."
+  },
   "action": {
     "message": "アクション",
     "description": "Actions for selected images."

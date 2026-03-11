@@ -1,7 +1,11 @@
 {
   "description_sic": {
-    "message": "صور بسيطة لجامع الصفحة.",
+    "message": "وصف لجامع الصور البسيط.",
     "description": "Description of simple-image-collector."
+  },
+  "open_with_sic": {
+    "message": "simple-image-collector افتح باستخدام برنامج ",
+    "description": "Open with Simple images collector."
   },
   "action": {
     "message": "فعل",

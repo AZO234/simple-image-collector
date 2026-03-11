@@ -3,6 +3,10 @@
     "message": "Simple images of page collector.",
     "description": "Description of simple-image-collector."
   },
+  "open_with_sic": {
+    "message": "Open with Simple images collector.",
+    "description": "Open with Simple images collector."
+  },
   "action": {
     "message": "Action",
     "description": "Actions for selected images."

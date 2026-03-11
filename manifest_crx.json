@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "simple-image-collector",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "__MSG_description_sic__",
   "permissions": ["activeTab", "tabs", "contextMenus", "storage", "clipboardWrite", "downloads"],
   "action": {},
@@ -20,5 +20,14 @@
       "matches": ["*://*/*"],
       "js": ["content.js"]
     }
-  ]
+  ],
+  "commands": {
+      "open_with_sic": {
+        "suggested_key": {
+          "default": "Alt+Shift+I",
+          "mac": "MacCtrl+Shift+I"
+        },
+        "description": "__MSG_open_with_sic__"
+      }
+  }
 }
