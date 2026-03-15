@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "simple-image-collector",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "description": "__MSG_description_sic__",
   "permissions": ["<all_urls>", "activeTab", "tabs", "contextMenus", "storage", "clipboardWrite", "downloads"],
   "browser_action": {},
