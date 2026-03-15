@@ -108,15 +108,18 @@ function saveOptionsFromStorage(storageoptions: sicStorageOptions) {
 }
 
 // on extension installed
-chrome.runtime.onInstalled.addListener(() => {
-  // contextmenu
-  chrome.contextMenus.create({
-    id: 'azo_sic_ci',
-    title: 'Collect images'
-  });
+chrome.runtime.onInstalled.addListener((details) => {
+  // only 'install' (not 'update')
+  if (details.reason === 'install') {
+    // contextmenu
+    chrome.contextMenus.create({
+      id: 'azo_sic_ci',
+      title: 'Collect images'
+    });
 
-  // save default options
-  saveOptions(sicDefOptions);
+    // save default options
+    saveOptions(sicDefOptions);
+  }
 });
 
 // on click extentions icon
