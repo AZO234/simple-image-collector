@@ -37,7 +37,7 @@ jobs:
         run: echo "REPOSITORY_NAME=${GITHUB_REPOSITORY#${GITHUB_REPOSITORY_OWNER}/}" >> $GITHUB_ENV
 
       - name: Zip Chrome build
-        run: zip -r "${{ env.REPOSITORY_NAME }}_v${{ github.ref_name }}.zip" dist/
+        run: zip -r "${{ env.REPOSITORY_NAME }}_${{ github.ref_name }}.zip" dist/
 
       - name: Submit to Chrome Web Store
         run: npx chrome-webstore-upload-cli@3 upload --source "${{ env.REPOSITORY_NAME }}_${{ github.ref_name }}.zip" --auto-publish
