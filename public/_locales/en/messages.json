@@ -210,5 +210,13 @@
   "in_css": {
     "message": "in CSS",
     "description": "Images in CSS."
+  },
+  "select_same_directory": {
+    "message": "Select same directory",
+    "description": "Select same directory."
+  },
+  "th_range": {
+    "message": "Range",
+    "description": "table header for range selection."
   }
 }

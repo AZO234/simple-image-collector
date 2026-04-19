@@ -210,5 +210,13 @@
   "in_css": {
     "message": "CSS内",
     "description": "Images in CSS."
+  },
+  "select_same_directory": {
+    "message": "同一ディレクトリを選択",
+    "description": "Select same directory."
+  },
+  "th_range": {
+    "message": "範囲",
+    "description": "table header for range selection."
   }
 }

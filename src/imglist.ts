@@ -399,17 +399,46 @@ function updateSelectedCount() {
   }
 }
 
+function selectSameDirectory(item: sicItem) {
+  const url = item.url;
+  if (!url || url.startsWith('data:') || url.startsWith('blob:')) {
+    item.check |= 0b010;
+    updateTable();
+    return;
+  }
+  const lastSlashIndex = url.lastIndexOf('/');
+  const targetDir = lastSlashIndex === -1 ? url : url.substring(0, lastSlashIndex + 1);
+  for (const it of sicItemsImgList) {
+    if (it.url.startsWith(targetDir)) {
+      it.check |= 0b010;
+    }
+  }
+  updateTable();
+}
+
 function updateRow(item: sicItem) {
   const row = <HTMLTableRowElement>document.getElementById('row_' + item.index);
   const cols = row.children;
 
+  // column: Range Selection
+  const btnRange = <HTMLButtonElement>cols[0].children[0];
+  btnRange.innerHTML = '';
+  const iconRange = document.createElement('i');
+  iconRange.classList.add('bi');
+  if (item.check & 0b100) {
+    iconRange.classList.add('bi-record-circle-fill', 'text-warning');
+  } else {
+    iconRange.classList.add('bi-circle');
+  }
+  btnRange.appendChild(iconRange);
+
   // column: ID
-  const col = <HTMLTableCellElement>cols[0];
-  col.classList.add('text-end');
-  col.textContent = item.index.toString();
+  const colId = <HTMLTableCellElement>cols[1];
+  colId.classList.add('text-end');
+  colId.textContent = item.index.toString();
 
   // column: Chk
-  const check = <HTMLInputElement>cols[1].children[0];
+  const check = <HTMLInputElement>cols[2].children[0];
   check.indeterminate = false;
   check.checked = false;
   row.style.display = '';
@@ -434,20 +463,20 @@ function updateRow(item: sicItem) {
   }
   
   // column: Tag
-  cols[2].textContent = item.tag;
+  cols[3].textContent = item.tag;
 
   // column Type
-  cols[3].textContent = item.type;
+  cols[4].textContent = item.type;
 
   // column MIME
   if(item.image) {
     if(/^image\//i.test(item.image.mime)) {
-      cols[4].innerHTML = '<img src="images/image.png" width="16" alt="image">' + item.image.mime;
+      cols[5].innerHTML = '<img src="images/image.png" width="16" alt="image">' + item.image.mime;
     } else {
-      cols[4].textContent = item.image.mime;
+      cols[5].textContent = item.image.mime;
     }
   } else {
-    cols[4].textContent = '';
+    cols[5].textContent = '';
   }
 
   // column URL&Info
@@ -455,9 +484,15 @@ function updateRow(item: sicItem) {
   if(displayURL.length > 64) {
     displayURL = displayURL.replace(/(^.{32}).*(.{32}$)/, "$1 ... $2");
   }
+
+  const btnSameDirHtml = `
+    <button class="btn btn-sm btn-primary me-2 btnSameDir" title="${chrome.i18n.getMessage("select_same_directory")}">
+      <i class="bi bi-folder-check text-white"></i>
+    </button>`;
+
   if(item.frameIndex || item.frameDepth) {
     if(item.image) {
-      cols[5].innerHTML = `
+      cols[6].innerHTML = `
       <div class="container-fluid ms-2">
         <div class="row">
           <div class="col-6 col-lg-3 img-thumbnail p-1" data-bs-toggle="modal" data-bs-target="#modal" data-img-url="${item.image.url}" data-img-data="" style="background: ${sicOptionsImgList.bgChecker ? 'url(\'images/checker.svg\')' : sicOptionsImgList.bgColor};">
@@ -473,12 +508,13 @@ function updateRow(item: sicItem) {
         </div>
         <div class="row">
           <div class="col-12 text-start">
+            ${btnSameDirHtml}
             <a class="link-underline link-underline-opacity-0 link-underline-opacity-100-hover" href="${item.url}" target="_blank">${displayURL}</a>
           </div>
         </div>
       </div>`;
     } else {
-      cols[5].innerHTML = `
+      cols[6].innerHTML = `
       <div class="container-fluid ms-2">
         <div class="row">
           <div class="col-12 text-start">
@@ -489,6 +525,7 @@ function updateRow(item: sicItem) {
         </div>
         <div class="row">
           <div class="col-12 text-start">
+            ${btnSameDirHtml}
             <a class="link-underline link-underline-opacity-0 link-underline-opacity-100-hover" href="${item.url}" target="_blank">${displayURL}</a>
           </div>
         </div>
@@ -496,7 +533,7 @@ function updateRow(item: sicItem) {
     }
   } else {
     if(item.image) {
-      cols[5].innerHTML = `
+      cols[6].innerHTML = `
       <div class="container-fluid ms-2">
         <div class="row">
           <div class="col-6 col-lg-3 img-thumbnail" data-bs-toggle="modal" data-bs-target="#modal" data-img-url="${item.image.url}" data-img-data="" style="background: ${sicOptionsImgList.bgChecker ? 'url(\'images/checker.svg\')' : sicOptionsImgList.bgColor};">
@@ -509,24 +546,34 @@ function updateRow(item: sicItem) {
         </div>
         <div class="row">
           <div class="col-12 text-start">
+            ${btnSameDirHtml}
             <a class="link-underline link-underline-opacity-0 link-underline-opacity-100-hover" href="${item.url}" target="_blank">${displayURL}</a>
           </div>
         </div>
       </div>`;
     } else {
-      cols[5].innerHTML = `
+      cols[6].innerHTML = `
         <div class="row">
           <div class="col-12 text-start">
+            ${btnSameDirHtml}
             <a class="link-underline link-underline-opacity-0 link-underline-opacity-100-hover" href="${item.url}" target="_blank">${displayURL}</a>
           </div>
         </div>`;
     }
   }
+
+  // Same directory button event listener
+  const btnSameDir = <HTMLButtonElement>cols[6].querySelector('.btnSameDir');
+  if (btnSameDir) {
+    btnSameDir.addEventListener('click', () => {
+      selectSameDirectory(item);
+    });
+  }
  
   // set modal
   const modalimg = <HTMLDivElement>document.getElementById('modal-image') || null;
   if(modalimg) {
-    const imgs = cols[5].getElementsByTagName('img');
+    const imgs = cols[6].getElementsByTagName('img');
     if(imgs && imgs.length > 0) {
       const img = <HTMLImageElement>imgs[0];
       if(img.parentElement) {
@@ -544,19 +591,25 @@ function addRow(item: sicItem) {
   if(tableBody) {
     const row = <HTMLTableRowElement>document.createElement('tr');
     row.id = 'row_' + item.index;
-    for(let i = 0; i < 6; i++) {
+    for(let i = 0; i < 7; i++) {
       const col = <HTMLTableCellElement>document.createElement('td');
       row.appendChild(col);
     }
 
-    const col0 = <HTMLTableCellElement>row.children[0];
-    col0.addEventListener('click', function() {
-      const row = <HTMLDivElement>this.parentElement;
+    const btnRange = <HTMLButtonElement>document.createElement('button');
+    btnRange.classList.add('btn', 'btn-primary', 'btn-sm');
+    btnRange.addEventListener('click', function() {
+      const col = <HTMLTableCellElement>this.parentElement;
+      const row = <HTMLTableRowElement>col.parentElement;
       const index = Number(row.id.replace(/row_(\d+$)/, "$1"));
       const item = getItemFromIndex(index);
       idClick(item);
       return false;
     });
+    row.children[0].appendChild(btnRange);
+
+    const col1 = <HTMLTableCellElement>row.children[1];
+    // ID cell click event removed
 
     const check = <HTMLInputElement>document.createElement('input');
     check.type = 'checkbox';
@@ -570,7 +623,7 @@ function addRow(item: sicItem) {
       updateRow(item);
       updateSelectedCount();
     });
-    row.children[1].appendChild(check);
+    row.children[2].appendChild(check);
 
     // search
     let bFound = true;

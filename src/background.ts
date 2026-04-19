@@ -101,7 +101,12 @@ function saveOptionsFromStorage(storageoptions: sicStorageOptions) {
   chrome.tabs.query({ url: chrome.runtime.getURL('imglist.html') }, async (tabs) => {
     for(const tab of tabs) {
       if(tab.id) {
-        await chrome.tabs.sendMessage(tab.id, { action: 'azo_sic_loadoptions' });
+        try {
+          await chrome.tabs.sendMessage(tab.id, { action: 'azo_sic_loadoptions' });
+        } catch (e) {
+          // Ignore error if receiving end does not exist (e.g. tab is still loading or closed)
+          console.debug(`Could not send message to tab ${tab.id}:`, e);
+        }
       }
     }
   });
@@ -109,14 +114,17 @@ function saveOptionsFromStorage(storageoptions: sicStorageOptions) {
 
 // on extension installed
 chrome.runtime.onInstalled.addListener((details) => {
-  // only 'install' (not 'update')
-  if (details.reason === 'install') {
-    // contextmenu
+  // contextmenu
+  chrome.contextMenus.removeAll(() => {
     chrome.contextMenus.create({
       id: 'azo_sic_ci',
-      title: 'Collect images'
+      title: 'Collect images',
+      contexts: ['all']
     });
+  });
 
+  // only 'install' (not 'update')
+  if (details.reason === 'install') {
     // save default options
     saveOptions(sicDefOptions);
   }
