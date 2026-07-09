@@ -187,6 +187,10 @@
     "message": "(Aria2) URL-адрес интерфейса",
     "description": "Interface URL of Aria2."
   },
+  "a2_secret": {
+    "message": "(Aria2) Секретный токен",
+    "description": "RPC secret token of Aria2."
+  },
   "a2_download_dir": {
     "message": "(Aria2) Скачать каталог",
     "description": "Download directory for Aria2."

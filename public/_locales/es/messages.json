@@ -187,6 +187,10 @@
     "message": "(Aria2) URL de la interfaz",
     "description": "Interface URL of Aria2."
   },
+  "a2_secret": {
+    "message": "(Aria2) Token secreto",
+    "description": "RPC secret token of Aria2."
+  },
   "a2_download_dir": {
     "message": "(Aria2) Descargar directorio",
     "description": "Download directory for Aria2."

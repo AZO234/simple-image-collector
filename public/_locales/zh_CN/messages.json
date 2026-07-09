@@ -195,6 +195,10 @@
     "message": "(Aria2) 接口地址",
     "description": "Interface URL of Aria2."
   },
+  "a2_secret": {
+    "message": "(Aria2) 密钥令牌",
+    "description": "RPC secret token of Aria2."
+  },
   "back_default": {
     "message": "返回默认值",
     "description": "Back to default all options."

@@ -195,6 +195,10 @@
     "message": "(Aria2) インターフェイス URL",
     "description": "Interface URL of Aria2."
   },
+  "a2_secret": {
+    "message": "(Aria2) シークレットトークン",
+    "description": "RPC secret token of Aria2."
+  },
   "back_default": {
     "message": "デフォルトに戻す",
     "description": "Back to default all options."

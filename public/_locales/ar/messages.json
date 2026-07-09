@@ -191,6 +191,10 @@
     "message": "(Aria2) عنوان URL للواجهة",
     "description": "Interface URL of Aria2."
   },
+  "a2_secret": {
+    "message": "(Aria2) رمز سري",
+    "description": "RPC secret token of Aria2."
+  },
   "back_default": {
     "message": "العودة الافتراضية",
     "description": "Back to default all options."

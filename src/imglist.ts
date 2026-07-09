@@ -15,6 +15,7 @@ const sicDefOptionsImgList: sicOptions = {
   remove1x1: true,
   rTimeout: 10000,
   a2IfUrl: 'http://localhost:6800/jsonrpc',
+  a2Secret: '',
   a2DlDirW: '',
   a2DlDirP: ''
 };
@@ -38,6 +39,7 @@ function convertOptionsToStorageImgList(options: sicOptions): sicStorageOptions 
     bRemove1x1: options.remove1x1.toString(),
     nmbRTimeout: options.rTimeout.toString(),
     txtA2IfUrl: options.a2IfUrl,
+    txtA2Secret: options.a2Secret,
     txtA2DlDirW: options.a2DlDirW.replace(/(\\|\/)$/, ''),
     txtA2DlDirP: options.a2DlDirP.replace(/(\\|\/)$/, '')
   };
@@ -59,6 +61,7 @@ function loadOptionsImgListDetail(result: { [key: string]: any;}) {
   sicOptionsImgList.remove1x1 = result['bRemove1x1'] === 'true';
   sicOptionsImgList.rTimeout = Number(result['nmbRTimeout']);
   sicOptionsImgList.a2IfUrl = result['txtA2IfUrl'];
+  sicOptionsImgList.a2Secret = result['txtA2Secret'] || '';
   sicOptionsImgList.a2DlDirW = result['txtA2DlDirW'].replace(/(\\|\/)$/, '');
   sicOptionsImgList.a2DlDirP = result['txtA2DlDirP'].replace(/(\\|\/)$/, '');
 }
@@ -1006,6 +1009,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const datetime = getDLDatatime();
     const adduris = [];
     const win = navigator.platform.startsWith("Win");
+    const a2Token: string[] = sicOptionsImgList.a2Secret !== '' ? [`token:${sicOptionsImgList.a2Secret}`] : [];
 
     for(const item of sicItemsImgList) {
       if((item.check & 0b110) && (item.check & 0b001) && item.a2able) {
@@ -1014,18 +1018,18 @@ document.addEventListener('DOMContentLoaded', () => {
             if(win) {
               adduris.push({
                 'methodName': 'aria2.addUri',
-                params: [[item.image.url], {out: getDLFilename(datetime, item), dir: sicOptionsImgList.a2DlDirW}]
+                params: [...a2Token, [item.image.url], {out: getDLFilename(datetime, item), dir: sicOptionsImgList.a2DlDirW}]
               });
             } else {
               adduris.push({
                 'methodName': 'aria2.addUri',
-                params: [[item.image.url], {out: getDLFilename(datetime, item), dir: sicOptionsImgList.a2DlDirP}]
+                params: [...a2Token, [item.image.url], {out: getDLFilename(datetime, item), dir: sicOptionsImgList.a2DlDirP}]
               });
             }
           } else {
             adduris.push({
               'methodName': 'aria2.addUri',
-              params: [[item.image.url], {out: getDLFilename(datetime, item)}]
+              params: [...a2Token, [item.image.url], {out: getDLFilename(datetime, item)}]
             });
           }
         }
